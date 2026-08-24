@@ -1,0 +1,280 @@
+import os
+import math
+import joblib
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, BatchNormalization, Input
+from tensorflow.keras.utils import register_keras_serializable
+
+from .layers import ANASPReLU, AdaptiveLoss
+from .losses import intra_class_loss, margin_loss, prototype_separation_loss
+from .backbones import build_default_backbone
+from .callbacks import APNetStageCallback, SaveAPNetHistory
+
+@register_keras_serializable(package="apnet")
+class APNet(tf.keras.Model):
+    def __init__(
+        self,
+        num_classes: int,
+        input_shape: tuple = (64, 64, 3),
+        embedding_dim: int = 512,
+        backbone: tf.keras.Model = None,
+        warmup_epochs: int = 25,
+        **kwargs
+    ):
+        super().__init__(**kwargs)
+        self.num_classes = num_classes
+        self.embedding_dim = embedding_dim
+        self.input_shape_val = input_shape
+        self.warmup_epochs = warmup_epochs
+
+        # Controlling Stage (0 = Warmup, 1 = Prototype Adaptive Loss)
+        self.stage = self.add_weight(
+            name="stage", shape=(), dtype=tf.int32,
+            initializer=tf.constant_initializer(0),
+            trainable=False
+        )
+
+        # Feature Extractor Setup
+        backbone_feat = build_default_backbone(input_shape) if backbone is None else backbone
+
+        inp = Input(shape=input_shape)
+        x = backbone_feat(inp)
+        x = Dense(embedding_dim, use_bias=False)(x)
+        x = BatchNormalization()(x)
+        feature = ANASPReLU()(x)
+        classifier_output = Dense(num_classes, activation="softmax")(feature)
+
+        self.encoder = Model(inp, [feature, classifier_output], name="APNet_Encoder")
+
+        # Prototype vectors
+        self.prototypes = self.add_weight(
+            shape=(num_classes, embedding_dim),
+            initializer="glorot_normal",
+            trainable=True,
+            name="prototypes"
+        )
+
+        # Losses and Metric Trackers
+        self.adaptive_loss = AdaptiveLoss()
+        self.loss_tracker = tf.keras.metrics.Mean(name="loss")
+        self.acc_tracker = tf.keras.metrics.Mean(name="accuracy")
+
+        # Dynamic Loss Multipliers
+        self.base_lambda1, self.base_lambda2, self.base_lambda3 = 1.0, 0.5, 0.3
+        self.lambda1 = self.add_weight(name="lambda1", shape=(), initializer=tf.constant_initializer(0.0), trainable=True)
+        self.lambda2 = self.add_weight(name="lambda2", shape=(), initializer=tf.constant_initializer(0.0), trainable=True)
+        self.lambda3 = self.add_weight(name="lambda3", shape=(), initializer=tf.constant_initializer(0.0), trainable=True)
+
+    def build(self, input_shape):
+        super().build(input_shape)
+        # Đảm bảo adaptive_loss tạo biến log_vars ngay khi build model
+        if hasattr(self.adaptive_loss, 'build'):
+            self.adaptive_loss.build(None)
+
+    def call(self, x, training=False):
+        return self.encoder(x, training=training)
+
+    def _compute_losses(self, f, cls, y):
+        f = tf.nn.l2_normalize(tf.cast(f, tf.float32), axis=1)
+        p = tf.nn.l2_normalize(tf.cast(self.prototypes, tf.float32), axis=1)
+
+        Liccl = intra_class_loss(f, y, p)
+        Licmrl = margin_loss(f, y, p, margin=0.15)
+        Lpsl = prototype_separation_loss(p, sigma=0.5)
+        Lce = tf.reduce_mean(
+            tf.keras.losses.categorical_crossentropy(
+                tf.one_hot(y, depth=self.num_classes), cls
+            )
+        )
+
+        # Tính toán adaptive loss thực tế
+        adaptive_val = self.adaptive_loss(
+            losses=[Lce, Liccl, Licmrl, Lpsl],
+            lambdas=[
+                tf.constant(3.0, dtype=tf.float32),
+                self.base_lambda1 + 0.3 * tf.nn.softplus(self.lambda1),
+                self.base_lambda2 + 0.3 * tf.nn.softplus(self.lambda2),
+                self.base_lambda3 + 0.1 * tf.nn.softplus(self.lambda3),
+            ]
+        )
+
+        # Ở Stage 0: Lấy 5.0 * Lce cộng với (0.0 * adaptive_val)
+        # Mục đích: Ép Optimizer đăng ký bộ nhớ gradient cho log_vars ngay từ Stage 0
+        loss = tf.cond(
+            tf.equal(self.stage, 0),
+            lambda: 5.0 * Lce + 0.0 * adaptive_val,
+            lambda: adaptive_val
+        )
+        return loss, Liccl, Licmrl, Lpsl
+
+    def train_step(self, data):
+        x, y = data
+        y = tf.cast(y, tf.int32)
+
+        with tf.GradientTape() as tape:
+            f, cls = self(x, training=True)
+            loss, Liccl, Licmrl, Lpsl = self._compute_losses(f, cls, y)
+
+        grads = tape.gradient(loss, self.trainable_variables)
+        grads = [tf.clip_by_norm(g, 5.0) if g is not None else None for g in grads]
+        self.optimizer.apply_gradients(zip(grads, self.trainable_variables))
+
+        # Update Prototypes via Moving Average
+        p_old = tf.cast(self.prototypes, tf.float32)
+        f_norm = tf.nn.l2_normalize(tf.cast(f, tf.float32), axis=1)
+        
+        new_proto_list = []
+        for c in range(self.num_classes):
+            mask = tf.equal(y, c)
+            class_feat = tf.boolean_mask(f_norm, mask)
+            class_mean = tf.cond(
+                tf.shape(class_feat)[0] > 0,
+                lambda: tf.reduce_mean(class_feat, axis=0),
+                lambda: p_old[c]
+            )
+            updated = 0.7 * p_old[c] + 0.3 * tf.stop_gradient(class_mean)
+            new_proto_list.append(updated)
+
+        new_prototypes = tf.nn.l2_normalize(tf.stack(new_proto_list), axis=1)
+        self.prototypes.assign(new_prototypes)
+
+        pred = tf.argmax(cls, axis=1, output_type=tf.int32)
+        acc = tf.reduce_mean(tf.cast(tf.equal(pred, y), tf.float32))
+
+        self.loss_tracker.update_state(loss)
+        self.acc_tracker.update_state(acc)
+
+        return {
+            "loss": self.loss_tracker.result(),
+            "accuracy": self.acc_tracker.result(),
+            "Liccl": Liccl,
+            "Licmrl": Licmrl,
+            "Lpsl": Lpsl,
+        }
+
+    def test_step(self, data):
+        x, y = data
+        y = tf.cast(y, tf.int32)
+        f, cls = self(x, training=False)
+        
+        loss, Liccl, Licmrl, Lpsl = self._compute_losses(f, cls, y)
+        pred = tf.argmax(cls, axis=1, output_type=tf.int32)
+        acc = tf.reduce_mean(tf.cast(tf.equal(pred, y), tf.float32))
+
+        self.loss_tracker.update_state(loss)
+        self.acc_tracker.update_state(acc)
+
+        return {
+            "loss": self.loss_tracker.result(),
+            "accuracy": self.acc_tracker.result(),
+            "Liccl": Liccl,
+            "Licmrl": Licmrl,
+            "Lpsl": Lpsl,
+        }
+
+    @property
+    def metrics(self):
+        return [self.loss_tracker, self.acc_tracker]
+
+    # --- WRAPPER FIT_DATASET CHUẨN BASELINE CHO MỌI ĐẦU VÀO ---
+    def fit_dataset(
+        self,
+        train_data,
+        val_data=None,
+        epochs: int = 300,
+        batch_size: int = 64,
+        learning_rate = 1e-3,
+        weight_decay: float = 1e-4,
+        save_dir: str = "./output",
+        callbacks: list = None,
+        **kwargs
+    ):
+        """Hàm Huấn luyện vạn năng hỗ trợ: tf.data.Dataset, NumPy arrays, hoặc Generative Pipeline."""
+        os.makedirs(save_dir, exist_ok=True)
+
+        # 1. Chuẩn hóa dữ liệu đầu vào
+        if isinstance(train_data, tuple):
+            X_train, y_train = train_data
+            train_ds = tf.data.Dataset.from_tensor_slices((X_train, y_train)).shuffle(10000).batch(batch_size).prefetch(tf.data.AUTOTUNE)
+            total_steps = math.ceil(len(X_train) / batch_size) * epochs
+        elif isinstance(train_data, tf.data.Dataset):
+            train_ds = train_data
+            try:
+                total_steps = len(train_ds) * epochs
+            except TypeError:
+                total_steps = kwargs.pop("total_steps", 10000)
+        else:
+            raise ValueError("train_data phải là Tuple (X, y) hoặc tf.data.Dataset")
+
+        if isinstance(val_data, tuple):
+            X_val, y_val = val_data
+            val_ds = tf.data.Dataset.from_tensor_slices((X_val, y_val)).batch(batch_size).prefetch(tf.data.AUTOTUNE)
+        else:
+            val_ds = val_data
+
+        # 2. Xử lý Learning Rate (Cố định hoặc Scheduler)
+        if isinstance(learning_rate, (float, int)):
+            lr_schedule = tf.keras.optimizers.schedules.CosineDecay(
+                initial_learning_rate=float(learning_rate),
+                decay_steps=total_steps,
+                alpha=1e-2
+            )
+        else:
+            lr_schedule = learning_rate
+
+        # 3. Tự động Compile Optimizer
+        optimizer = tf.keras.optimizers.AdamW(
+            learning_rate=lr_schedule,
+            weight_decay=weight_decay,
+            clipnorm=0.5
+        )
+        self.compile(optimizer=optimizer, run_eagerly=True)
+
+        # 4. Tự động thêm Callbacks mặc định
+        checkpoint_path = os.path.join(save_dir, "APNet_best.weights.h5")
+        history_path = os.path.join(save_dir, "training_history.csv")
+
+        default_callbacks = [
+            APNetStageCallback(switch_epoch=self.warmup_epochs),
+            SaveAPNetHistory(filepath=history_path),
+            tf.keras.callbacks.ModelCheckpoint(
+                filepath=checkpoint_path,
+                monitor="val_accuracy",
+                save_best_only=True,
+                save_weights_only=True,
+                mode="max",
+                verbose=1
+            )
+        ]
+
+        if callbacks:
+            default_callbacks.extend(callbacks)
+
+        # 5. Huấn luyện
+        history = self.fit(
+            train_ds,
+            validation_data=val_ds,
+            epochs=epochs,
+            callbacks=default_callbacks,
+            **kwargs
+        )
+
+        # 6. Tự động lưu Artifacts sau khi Train xong
+        self.save_weights(os.path.join(save_dir, "APNet_final.weights.h5"))
+        np.save(os.path.join(save_dir, "prototypes.npy"), self.prototypes.numpy())
+        
+        # Đọc an toàn log_vars khi lưu
+        adaptive_weights = {}
+        if hasattr(self.adaptive_loss, 'log_vars'):
+            log_vars = self.adaptive_loss.log_vars
+            if isinstance(log_vars, (list, tuple)):
+                adaptive_weights = {f"log_var_{i}": float(w.numpy()) for i, w in enumerate(log_vars)}
+            else:
+                adaptive_weights = {f"log_var_{i}": float(val) for i, val in enumerate(log_vars.numpy())}
+                
+        joblib.dump(adaptive_weights, os.path.join(save_dir, "adaptive_loss_weights.pkl"))
+
+        print(f"\n >>> [APNet] Training Complete! Artifacts saved to: {save_dir}")
+        return history
