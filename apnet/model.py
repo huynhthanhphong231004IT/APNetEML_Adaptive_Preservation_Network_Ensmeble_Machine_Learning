@@ -10,7 +10,11 @@ from tensorflow.keras.utils import register_keras_serializable
 from .layers import ANASPReLU, AdaptiveLoss, PrototypeModel
 from .losscomponent import Loss_Component
 from .backbones import build_default_backbone
-from .callbacks import APNetStageCallback, SaveAPNetHistory
+from .callbacks import (
+    APNetStageCallback,
+    SaveAPNetHistory,
+    PlotAPNetHistory
+)
 
 @register_keras_serializable(package="apnet")
 class APNet(tf.keras.Model):
@@ -245,6 +249,8 @@ class APNet(tf.keras.Model):
         default_callbacks = [
             APNetStageCallback(switch_epoch=self.warmup_epochs),
             SaveAPNetHistory(filepath=history_path),
+            PlotAPNetHistory(save_dir=save_dir),
+
             tf.keras.callbacks.ModelCheckpoint(
                 filepath=checkpoint_path,
                 monitor="val_accuracy",
