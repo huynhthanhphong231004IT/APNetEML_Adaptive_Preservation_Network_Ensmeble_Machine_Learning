@@ -397,6 +397,34 @@ Thiết lập một cấu trúc hình học lý tưởng theo triết lý "tối
   </span>
 </h3>
 
+<div align="center">
+
+<p>Thống kê chi tiết về kiến trúc, quy mô và các tham số có thể huấn luyện của mô hình (`Frozen=False`)</p>
+
+<table>
+  <tr>
+    <th>Metric</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Total Parameters</td>
+    <td>5,529,716</td>
+  </tr>
+  <tr>
+    <td>Trainable Parameters</td>
+    <td>5,523,699</td>
+  </tr>
+  <tr>
+    <td>Non-trainable Parameters</td>
+    <td>6,017</td>
+  </tr>
+  <tr>
+    <td>Model Size</td>
+    <td>21.09 MB</td>
+  </tr>
+</table>
+
+</div>
 <p>
   <mark><b>Kết quả huấn luyện trên tập CIFAR-10</b></mark> so sánh giữa APNet-EML với các baseline EfficientNetB0 và ResNe50
 </p>
