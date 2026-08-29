@@ -101,3 +101,70 @@ và phi tuyến mạnh (Đường xanh lá với
     <b>3. Chiến lược hàm mất mát thích nghi động thích nghi ngữ cảnh PD - Loss (Proposed Dynamic Loss)</b>
   </span>
 </h3>
+<p align="justify">
+  Nhằm tăng cường khả năng phân tách liên lớp (inter-class separability), tối
+  ưu độ co cụm nội lớp (intra-class compactness), đồng thời bảo toàn cấu trúc hình
+  thái (morphological structures) đặc trưng của ảnh cổ vật, luận văn này xây dựng
+  một hàm mất mát tổng hợp đa thành phần (multi-component joint loss function).
+  Hệ thống bao gồm các thành phần tối ưu hóa chuyên biệt tác động lên không
+  gian nhúng đặc trưng (feature embedding space). Cơ chế cốt lõi của phương pháp
+  là chiến lược học động trọng số (dynamic weight learning) giữa các thành phần
+  loss. Để đảm bảo tính ổn định hội tụ và tránh hiện tượng sụp đổ cấu trúc đa
+  tạp (manifold collapse), quá trình tối ưu được chia làm hai giai đoạn: Giai đoạn
+  khởi tạo (warm-up phase) sử dụng hàm mất mát Cross-Entropy độc lập trong n
+  epoch đầu tiên, và Giai đoạn tối ưu hóa thích nghi (adaptive optimization phase)
+  cập nhật động các hệ số thông qua lan truyền ngược (backpropagation). Cụ thể,
+  trọng số tổng hợp của mỗi thành phần loss bổ trợ được cấu thành từ tích của hai
+  yếu tố: hằng số chuẩn hóa thang đo cố định βi và tham số trọng số học động λi.
+  Hàm mất mát thích nghi PD-Loss được phát biểu một cách hình thức như sau
+</p>
+
+<p align="center">
+  <img src="https://latex.codecogs.com/svg.image?%5Cmathcal%7BL%7D_%7Btotal%7D%3D%5Cbegin%7Bcases%7D%5Calpha%5Cmathcal%7BL%7D_%7BCE%7D%2C%26%5Ctext%7Bif%20epochs%7D%5Cle%20n%2C%5C%5C%5B8pt%5D%5Calpha%5Cmathcal%7BL%7D_%7BCE%7D%2B%5Csum_%7Bi%3D1%7D%5E%7B4%7D%5Cleft%5Be%5E%7B-%5Clambda_i%7D%5Cleft%28%5Cbeta_i%2B%5Cgamma_i%5Cln%281%2Be%5E%7B%5Clambda_i%7D%29%5Cright%29%5Cmathcal%7BL%7D_i%2B%5Clambda_i%5Cright%5D%2C%26%5Ctext%7Bif%20epochs%7D%3E%20n.%5Cend%7Bcases%7D" width="650">
+</p>
+<p style="text-align: justify;">
+Trong đó,
+<img src="https://latex.codecogs.com/svg.image?%5Calpha%20%5Cin%20%5Cmathbb%7BR%7D%5E%2B" width="55" style="vertical-align: middle;">
+là siêu tham số cố định đóng vai trò điều phối mức đóng góp của thành phần mất mát phân lớp chính;
+<img src="https://latex.codecogs.com/svg.image?%5Cbeta_i%20%5Cin%20%5Cmathbb%7BR%7D%5E%2B%2C%20i%3D1%2C%5Cdots%2C4" width="135" style="vertical-align: middle;">
+là các hệ số chuẩn hóa tĩnh (static scaling coefficients) nhằm cân bằng thang đo (magnitude alignment) giữa các thành phần loss khác nhau trong không gian tối ưu hóa;
+và
+<img src="https://latex.codecogs.com/svg.image?%5Clambda_i%20%5Cin%20%5Cmathbb%7BR%7D%5E%2B" width="70" style="vertical-align: middle;">
+là các trọng số học động (learnable dynamic weights) được cập nhật thông qua quá trình lan truyền ngược, cho phép mô hình tự thích nghi mức độ quan trọng của từng thành phần loss theo tiến trình huấn luyện.
+Đồng thời, các thành phần
+<img src="https://latex.codecogs.com/svg.image?L_i%20%28i%3D1%2C%5Cdots%2C4%29" width="100" style="vertical-align: middle;">
+lần lượt được định nghĩa như sau:
+<img src="https://latex.codecogs.com/svg.image?L_1%5Cequiv%20L_%7BICCL%7D" width="85" style="vertical-align: middle;">
+(Intra-Class Compactness Loss) nhằm thu nhỏ phương sai nội lớp trong không gian đặc trưng;
+<img src="https://latex.codecogs.com/svg.image?L_2%5Cequiv%20L_%7BICMRL%7D" width="90" style="vertical-align: middle;">
+(Inter-Class Margin Ranking Loss) nhằm thiết lập biên phân tách an toàn giữa các lớp;
+<img src="https://latex.codecogs.com/svg.image?L_3%5Cequiv%20L_%7BPSL%7D" width="70" style="vertical-align: middle;">
+(Prototype Separation Loss) nhằm tối đa hóa khoảng cách hình học giữa các prototype của các lớp trong không gian nhúng
+và
+<img src="https://latex.codecogs.com/svg.image?L_4%5Cequiv%20L_%7BUAER%7D" width="75" style="vertical-align: middle;">
+(Uncertainty-Aware Entropy Regularization) nhằm điều tiết mức độ bất định của mô hình, qua đó giảm ảnh hưởng của các mẫu nhiễu và các mẫu khó (hard examples) trong quá trình tối ưu hóa.
+</p>
+<p style="text-align: justify;">
+
+<b>Cơ sở lý thuyết của giai đoạn tiền ổn định với n epoch đầu:</b>
+Việc phân tách quy trình huấn luyện thành cấu trúc hai giai đoạn xuất phát từ các đặc điểm hình học vi mô và động lực học gradient (gradient dynamics) của mạng nơ-ron sâu:
+
+<i>(1) Định hình cấu trúc đa tạp sơ bộ.</i>
+Tại thời điểm khởi đầu, các trọng số của mạng nền tảng (backbone network) nằm ở trạng thái ngẫu nhiên, chưa tương thích với phân phối dữ liệu cổ vật (P<sub>data</sub>). Hàm L<sub>CE</sub> đóng vai trò như một cơ chế định hướng thô (coarse alignment), ép mô hình tập trung khai thác các đặc trưng biểu diễn mức thấp (low-level representations) như kết cấu cục bộ và phân phối màu sắc. Quá trình này giúp thiết lập một cấu trúc phân lớp topo sơ bộ trên đa tạp đặc trưng trước khi áp dụng các ràng buộc hình học nghiêm ngặt;
+
+<i>(2) Ngăn ngừa sụp đổ không gian nhúng và bất ổn định Gradient.</i>
+Nếu các ràng buộc hình học phức tạp (L<sub>ICCL</sub>, L<sub>ICMRL</sub>, L<sub>PSL</sub>) cùng cơ chế cập nhật động λ<sub>i</sub> được kích hoạt đồng thời ngay từ epoch đầu tiên, mô hình rất dễ rơi vào các điểm tối ưu cục bộ kém (poor local minima) do không gian vector chưa được định hình. Hơn nữa, việc thiếu một “hướng neo” vững chắc từ L<sub>CE</sub> sẽ khiến các tham số động λ<sub>i</sub> dao động hỗn loạn, dẫn đến hiện tượng bùng nổ hoặc tiêu biến gradient (gradient explosion/vanishing). Do đó, việc cố định n epoch đầu tạo ra một vùng đệm hội tụ ổn định, chuẩn bị một không gian nhúng có độ chín muồi thích hợp cho giai đoạn tối ưu hóa đa mục tiêu kế tiếp.
+
+<b>Động cơ toán học của hàm mất mát tích hợp đa thành phần:</b>
+Dữ liệu ảnh cổ vật sở hữu các thuộc tính đặc thù gây bất lợi cho các hàm mất mát truyền thống: tỷ lệ tín hiệu trên nhiễu (SNR) thấp, tổn thương hình thái do dòng thời gian, và hiện tượng độ tương đồng liên lớp cao kết hợp với biến động nội lớp lớn (high inter-class similarity and intra-class variance). Một hàm loss Cross-Entropy đơn lẻ chỉ tập trung vào ranh giới quyết định (decision boundary) tại lớp ngoài cùng mà hoàn toàn bỏ qua cấu trúc hình học bên trong của không gian nhúng. Do đó, hàm mục tiêu tổng thể L<sub>total</sub> được đề xuất không thuần túy là một phép tổ hợp tuyến tính (linear combination), mà cấu thành một hệ thống tối ưu hóa đa tầng ràng buộc:
+
+<i>(1) Nhóm ràng buộc topo không gian nhúng (L<sub>1,2,3</sub>).</i>
+Thiết lập một cấu trúc hình học lý tưởng theo triết lý "tối đa khoảng cách giữa các lớp, tối thiểu khoảng cách trong cùng một lớp" dưới dạng phân rã các cụm siêu cầu (hyperspherical clustering);
+
+<i>(2) Nhóm bảo toàn cấu trúc thị giác (L<sub>4</sub>).</i>
+Đóng vai trò như một bộ lọc thông thấp (regularizer) giữ lại các thông tin bất biến về mặt hình thái học của cổ vật, tránh hiện tượng mô hình bị mất các đặc trưng ngữ cảnh tinh vi trong quá trình nén chiều đặc trưng;
+
+<i>(3) Nhóm điều tiết phân phối xác suất (L<sub>5</sub>).</i>
+Đóng vai trò kiểm soát entropy cấu trúc, làm mượt ranh giới quyết định đối với các mẫu nằm ở vùng bất định cao, tăng cường năng lực tổng quát hóa (generalization capability) của toàn bộ kiến trúc trên các tập dữ liệu thực tế độc lập.
+
+</p>
