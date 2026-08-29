@@ -72,9 +72,15 @@ chất: (i) Tính liên tục; (ii) Tính khả vi; (iii) tính bị chặn về
 </p>
 
 <p align="center">
-  <img src="images/DacTrungActication.png" width="900">
+  <img src="images/DacTrungActicationConv1.png" width="900">
   <br>
-  <i>So sánh đặc trưng (feature maps) giữa các hàm kích hoạt (ReLU, SNReLU, PReLU, ELU) tại 8 kênh (channels) đầu ra của lớp Convolution 2D đầu tiên (Conv1) trên cùng một ảnh đầu vào là chiếc xe tăng.</i>
+  <i>So sánh đặc trưng (feature maps) giữa các hàm kích hoạt (ReLU, SNReLU, PReLU, ELU) tại 8 kênh (channels) đầu ra của  <mark><b>lớp Convolution 2D đầu tiên (Conv1)</b></mark> trên cùng một ảnh đầu vào là chiếc xe tăng.</i>
+</p>
+
+<p align="center">
+  <img src="images/DacTrungActicationConv6.png" width="900">
+  <br>
+  <i>So sánh đặc trưng (feature maps) giữa các hàm kích hoạt (ReLU, SNReLU, PReLU, ELU) tại 8 kênh (channels) đầu ra của <mark><b>lớp Convolution 2D cuối cùng (Conv6)</b></mark>  trên cùng một ảnh đầu vào là chiếc xe tăng.</i>
 </p>
 
 <h3 align="left">
