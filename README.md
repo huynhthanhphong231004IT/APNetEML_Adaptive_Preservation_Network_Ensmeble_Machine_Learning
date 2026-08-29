@@ -21,6 +21,12 @@
   <i> Quá trình huấn luyện thử nghiệm mô hình <mark><b>ResNet-50</b></mark> trên tập dữ liệuCIFAR10</i>
 </p>
 
+<p align="center">
+  <img src="images/DoChinhXac.jpg" width="900">
+  <br>
+  <i>  Độ chính xác giữa các mô hình Baseline so sánh APNet cùng với các chiến lược huấn luyện khác nhau trên tập <mark><b> dữ liệu bảo tàng quân khu 9</b></mark></i>
+</p>
+
 <h2 align="center">
   <span style="color:#8B4513;">
     <b>Mô hình phân loại 2 giai đoạn APNet-EML (Adaptive Preservation Network - Ensemble Machine Learning)</b>
