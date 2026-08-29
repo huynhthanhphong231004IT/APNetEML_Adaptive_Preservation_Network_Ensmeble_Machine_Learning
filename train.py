@@ -12,17 +12,16 @@ model = APNet(
     embedding_dim=512,
     backbone=None,
     warmup_epochs=20,
-    Frozen=False,
+    Frozen=True,
 )
-
 model.summary()
 
-model.fit_dataset(
-    train_data=(X_train, y_train),
-    val_data=(X_val, y_val),
-    epochs=10,
-    batch_size=32,
-    learning_rate=1e-5,
-    run_ensemble=True,
-    save_dir="./my_numpy_experiment"
-)
+# model.fit_dataset(
+#     train_data=(X_train, y_train),
+#     val_data=(X_val, y_val),
+#     epochs=10,
+#     batch_size=32,
+#     learning_rate=1e-5,
+#     run_ensemble=True,
+#     save_dir="./my_numpy_experiment"
+# )
