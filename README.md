@@ -23,10 +23,10 @@
 
 <p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<b>Facbook:</b> https://www.facebook.com/share/1Md5MZhbkJ/ <br>
+Facbook: https://www.facebook.com/share/1Md5MZhbkJ/ <br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<b>Kaggle:</b> https://www.kaggle.com/reorioll <br>
+Kaggle: https://www.kaggle.com/reorioll <br>
 
 </p>
 <br>
