@@ -11,19 +11,19 @@
 <p align="center">
   <img src="images/HuanLuyenCIFAR10.png" width="900">
   <br>
-  <i> Quá trình huấn luyện thử nghiệm mô hình <mark><b>APNet-EML</b></mark> trên tập dữ liệuCIFAR10</i>
+  <i> Quá trình huấn luyện thử nghiệm mô hình <mark><b>APNet-EML</b></mark> trên tập dữ liệuCIFAR10, kích thước ảnh 64x64</i> 
 </p>
 
 <p align="center">
   <img src="images/efficientnetb0.png" width="900">
   <br>
-  <i> Quá trình huấn luyện thử nghiệm mô hình <mark><b>Efficientnetb0</b></mark> trên tập dữ liệuCIFAR10</i>
+  <i> Quá trình huấn luyện thử nghiệm mô hình <mark><b>Efficientnetb0</b></mark> trên tập dữ liệuCIFAR10, kích thước ảnh 64x64</i>
 </p>
 
 <p align="center">
   <img src="images/resnet50.png" width="900">
   <br>
-  <i> Quá trình huấn luyện thử nghiệm mô hình <mark><b>ResNet-50</b></mark> trên tập dữ liệuCIFAR10</i>
+  <i> Quá trình huấn luyện thử nghiệm mô hình <mark><b>ResNet-50</b></mark> trên tập dữ liệuCIFAR10, kích thước ảnh 224x224</i>
 </p>
 
 <p>
