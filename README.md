@@ -19,11 +19,28 @@
 </p>
 <br>
 
+```python
+git clone https://github.com/huynhthanhphong231004IT/Adaptive_Preservation_Network.git
+```
+
+
+
+```python
+model = APNet(
+    num_classes=10,
+    input_shape=(64, 64, 3),
+    embedding_dim=1024,
+    backbone=None,
+    warmup_epochs=5,
+    Frozen=False
+)
+```
+
 
 <div align="left">
 <p>
   <a href="docs/APNetEML_Theory.md">
-    <font size="5"><b>02. Proposed Theory</b></font>
+    <font size="5"><b>I. Proposed Theory</b></font>
   </a>
   <br>
   <font size="3">Theoretical foundation of APNet-EML architecture: (1) Activation functions including SNReLU and ANASPReLU;(2) Mix loss function with 5 baseline losses of Deep Lerning is PD-Loss; (3) Ensemble Machine Learing with 4 algorithms including SVM, Random Forest, Logistic Regestion, MLP in Vote Soft</font>
@@ -31,7 +48,7 @@
 
 <p>
   <a href="docs/APNetEML_Results.md">
-    <font size="5"><b>03. Experimental Results</b></font>
+    <font size="5"><b>II. Experimental Results</b></font>
   </a>
   <br>
   <font size="3">Experimental evaluation with performance analysis and model generalization including effecting activations, effecting backprop different components of PD-Loss, comparing baseline models. Experimental datasets with Military Region 9 Museum of Can Tho, CIFAR-10, CIFAR-100, ... </font>
