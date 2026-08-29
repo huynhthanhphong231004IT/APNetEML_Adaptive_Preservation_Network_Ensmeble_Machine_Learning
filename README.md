@@ -14,3 +14,17 @@ Mô hình APNet-EML gồm 2 giai đoạn: Giai đoạn 1 trích xuất đặc tr
   <br>
   <i>Hình 1. Kiến trúc mô hình APNet-EML</i>
 </p>
+
+<h1 align="center">
+  <span style="color:#8B4513;">
+    <b>Hàm kích hoạt SN-ReLU (Smooth Nonlinear ReLU)</b>
+  </span>
+</h1>
+
+<p align="center">
+  <img src="images/SNReLU.jpg" width="800">
+  <br>
+  <i>Hình 2. Minh họa hàm SN–ReLU (a) và đạo hàm của SN–ReLU (b) trên trục số thực.</i>
+</p>
+
+
