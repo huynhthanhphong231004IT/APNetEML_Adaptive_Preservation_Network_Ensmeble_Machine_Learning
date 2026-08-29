@@ -10,7 +10,9 @@ model = APNet(
     num_classes=10,
     input_shape=(64, 64, 3),
     embedding_dim=1024,
-    warmup_epochs=5
+    backbone=None,
+    warmup_epochs=5,
+    Frozen=False
 )
 
 model.fit_dataset(

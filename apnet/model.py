@@ -25,6 +25,7 @@ class APNet(tf.keras.Model):
         embedding_dim: int = 512,
         backbone: tf.keras.Model = None,
         warmup_epochs: int = 25,
+        Frozen: bool = True,
         **kwargs
     ):
         super().__init__(**kwargs)
@@ -32,6 +33,7 @@ class APNet(tf.keras.Model):
         self.embedding_dim = embedding_dim
         self.input_shape_val = input_shape
         self.warmup_epochs = warmup_epochs
+        self.Frozen = Frozen
 
         self.stage = self.add_weight(
             name="stage", shape=(), dtype=tf.int32,
@@ -39,8 +41,12 @@ class APNet(tf.keras.Model):
             trainable=False
         )
 
-        backbone_feat = build_default_backbone(input_shape) if backbone is None else backbone
-
+        backbone_feat = (
+            build_default_backbone(input_shape, Frozen=Frozen)
+            if backbone is None
+            else backbone
+        )
+        
         inp = Input(shape=input_shape)
         x = backbone_feat(inp)
         x = Dense(embedding_dim, use_bias=False)(x)
