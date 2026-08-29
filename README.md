@@ -1,4 +1,6 @@
-Các model APNet-EML
+```python
+git clone https://github.com/huynhthanhphong231004IT/Adaptive_Preservation_Network.git
+```
 
 ```python
 model = APNet(
