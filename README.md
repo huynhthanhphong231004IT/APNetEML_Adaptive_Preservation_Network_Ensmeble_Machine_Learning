@@ -19,10 +19,111 @@
 </p>
 <br>
 
+<h3 align="left">
+  <span style="color:#8B4513;">
+    <b>Hướng dẫn huấn luyện APNetEML với CIFAR-10 trên Google Colaboratory</b>
+  </span>
+</h3>
+
+
 ```python
-git clone https://github.com/huynhthanhphong231004IT/Adaptive_Preservation_Network.git
+!git clone https://github.com/huynhthanhphong231004IT/Adaptive_Preservation_Network.git
 ```
 
+```python
+%cd /content/Adaptive_Preservation_Network
+```
+
+```python
+!pip install -r requirements.txt
+```
+
+```python
+import tensorflow as tf
+import numpy as np
+
+(X_train, y_train), (X_test, y_test) = tf.keras.datasets.cifar10.load_data()
+X_train = tf.image.resize(X_train, (64, 64)).numpy().astype(np.float32)
+X_test  = tf.image.resize(X_test, (64, 64)).numpy().astype(np.float32)
+
+y_train = y_train.flatten()
+y_test = y_test.flatten()
+
+print("X_train:", X_train.shape)
+print("y_train:", y_train.shape)
+print("X_test :", X_test.shape)
+print("y_test :", y_test.shape)
+```
+
+```python
+class CosineLRSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):
+    def __init__(self, eta_max, eta_min, total_steps):
+        super().__init__()
+        self.eta_max = eta_max
+        self.eta_min = eta_min
+        self.total_steps = total_steps
+
+    def __call__(self, step):
+        step = tf.cast(step, tf.float32)
+        t = tf.minimum(step,tf.cast(self.total_steps, tf.float32))
+        lr = (self.eta_min+ 0.5 * (self.eta_max - self.eta_min)* (1.0+ tf.cos((t / self.total_steps) * tf.constant(3.141592653589793))))
+        return lr
+
+    def get_config(self):
+        return {
+            "eta_max": self.eta_max,
+            "eta_min": self.eta_min,
+            "total_steps": self.total_steps
+        }
+```
+
+```python
+TOTAL_EPOCHS = 200
+BATCH_SIZE = 64
+STEPS_PER_EPOCH = len(X_train) // BATCH_SIZE
+TOTAL_STEPS = TOTAL_EPOCHS * STEPS_PER_EPOCH
+```
+
+```python
+lr_schedule = CosineLRSchedule(
+    eta_max=ETA_MAX,
+    eta_min=ETA_MIN,
+    total_steps=TOTAL_STEPS
+)
+```
+
+```python
+early_stopping = tf.keras.callbacks.EarlyStopping(
+    monitor="val_accuracy",
+    patience=30,
+    mode="max",
+    restore_best_weights=True,
+    verbose=1
+)
+```
+
+```python
+model = APNet(
+    num_classes=10,
+    input_shape=(64, 64, 3),
+    embedding_dim=1024,
+    backbone=None,
+    warmup_epochs=5,
+    Frozen=False
+)
+```
+
+```python
+history = model.fit_dataset(
+    train_data=(X_train, y_train),
+    val_data=(X_test, y_test),
+    epochs = TOTAL_EPOCHS,
+    batch_size = BATCH_SIZE,
+    learning_rate = lr_schedule,
+    save_dir="my_path",
+    callbacks=[early_stopping]
+)
+```
 
 
 ```python
