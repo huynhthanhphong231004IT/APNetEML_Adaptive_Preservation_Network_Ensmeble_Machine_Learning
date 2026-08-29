@@ -399,7 +399,7 @@ Thiết lập một cấu trúc hình học lý tưởng theo triết lý "tối
 
 <div align="center">
 
-<p>Thống kê chi tiết về kiến trúc, quy mô và các tham số có thể huấn luyện của mô hình (`Frozen=False`)</p>
+<p>Thống kê chi tiết về kiến trúc, quy mô và các tham số có thể huấn luyện của mô hình (Frozen=False)</p>
 
 <table>
   <tr>
