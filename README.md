@@ -1,3 +1,8 @@
+<h3 align="center">
+  <span style="color:#8B4513;">
+    <b>Kết quả đánh giá trên các tập dữ liệu khác nhau</b>
+  </span>
+</h3>
 
 <p>
   <mark><b>Kết quả huấn luyện trên tập CIFAR-10</b></mark> so sánh giữa APNet-EML với các baseline EfficientNetB0 và ResNe50
