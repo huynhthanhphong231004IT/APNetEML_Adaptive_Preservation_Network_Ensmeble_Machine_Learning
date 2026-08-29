@@ -146,7 +146,7 @@ early_stopping = tf.keras.callbacks.EarlyStopping(
 ```
 
 <p>
-  Step 7. Deep feature training on APNetCNN
+  Step 7. Deep feature training on APNetCNN and EML classification
 </p>
 
 
