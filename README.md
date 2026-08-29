@@ -391,7 +391,19 @@ Thiết lập một cấu trúc hình học lý tưởng theo triết lý "tối
 
 <i>(3) Nhóm điều tiết phân phối xác suất (L<sub>5</sub>).</i>
 Đóng vai trò kiểm soát entropy cấu trúc, làm mượt ranh giới quyết định đối với các mẫu nằm ở vùng bất định cao, tăng cường năng lực tổng quát hóa (generalization capability) của toàn bộ kiến trúc trên các tập dữ liệu thực tế độc lập.
+</p>
 
+<p align="center">
+  <img src="images/DacTrungLoss.png" width="900">
+  <br>
+  <i> <p>
+Biểu đồ mô phỏng phản ứng kích hoạt <b>Feature Vector (256-D)</b> giữa
+<img src="https://latex.codecogs.com/svg.image?%5Cmathcal%7BL%7D_%7BCE%7D" width="45" style="vertical-align: middle;">
+thuần và <b>PD -Loss</b>
+<img src="https://latex.codecogs.com/svg.image?%28%5Cmathcal%7BL%7D_%7Btotal%7D%29" width="65" style="vertical-align: middle;">
+với
+<img src="https://latex.codecogs.com/svg.image?N%20%3D%20256%2C%20%5Cmu%20%3D%200%2C%20%5Csigma%20%3D%200.15%2C%20%5Ctext%7Bmargin%7D%20%3D%200.3%2C%20%5Csigma_%7BPSL%7D%20%3D%200.3" width="350" style="vertical-align: middle;">.
+</p></i> 
 </p>
 
 <h3 align="left">
