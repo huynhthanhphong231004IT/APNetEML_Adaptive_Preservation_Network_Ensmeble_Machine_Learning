@@ -21,15 +21,6 @@
 
 
 <div align="left">
-
-<p>
-  <a href="docs/APNetEML_SoureCode">
-    <font size="5"><b>01. Source Code Model</b></font>
-  </a>
-  <br>
-  <font size="3">Complete implementation and configuration of the APNet-EML model.</font>
-</p>
-
 <p>
   <a href="docs/APNetEML_Theory.md">
     <font size="5"><b>02. Proposed Theory</b></font>
