@@ -185,6 +185,7 @@ history = model.fit_dataset(
 > **`warmup_epochs`**: The number of initial epochs used for the phase transition in the PD-Loss function.
 >
 > **`Frozen`**: Set to `True` to freeze part of the backbone (Conv2D layers with 216 and 512 filters). Set to `False` to train all backbone layers.
+> 
 > **`run_ensemble`**: Set to `True` to automatically run the Ensemble pipeline (APNet feature extraction, PCA reduction, Stacking + MLP + SVM training) right after APNet finishes training. Set to `False` to train the standalone APNet model only.
 
 <h3 align="left">
