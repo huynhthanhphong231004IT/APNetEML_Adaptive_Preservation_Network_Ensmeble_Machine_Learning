@@ -73,6 +73,8 @@ print("y_test :", y_test.shape)
 <p>
   Bước 5. Chuấn hóa Cosine Annealing cho Learning Rate
 </p>
+<img src="https://latex.codecogs.com/svg.image?%5Ceta_t%20%3D%20%5Ceta_%7Bmin%7D%20%2B%20%5Cfrac%7B1%7D%7B2%7D%28%5Ceta_%7Bmax%7D%20-%20%5Ceta_%7Bmin%7D%29%5Cleft%281%20%2B%20%5Ccos%5Cleft%28%5Cfrac%7Bt%7D%7BT%7D%5Cpi%5Cright%29%5Cright%29%2C%20%5Ctext%7Bpatience%7D%20%3D%203" width="450" style="vertical-align: middle;">
+
 
 ```python
 class CosineLRSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):
@@ -101,6 +103,10 @@ class CosineLRSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):
 </p>
 
 ```python
+import tensorflow as tf
+from apnet import APNet
+ETA_MAX = 1e-5
+ETA_MIN = 1e-7
 TOTAL_EPOCHS = 200
 BATCH_SIZE = 64
 STEPS_PER_EPOCH = len(X_train) // BATCH_SIZE
