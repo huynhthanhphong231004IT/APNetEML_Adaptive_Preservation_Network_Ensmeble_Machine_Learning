@@ -21,6 +21,10 @@
   <i> Quá trình huấn luyện thử nghiệm mô hình <mark><b>ResNet-50</b></mark> trên tập dữ liệuCIFAR10</i>
 </p>
 
+<p>
+  <mark><b>Kết quả huấn luyện trên tập Bảo tàng quân khu 9 - Cần Thơ</b></mark> so sánh các chiến lược huấn luyện để đánh giá mức độ ảnh hưởng giữa các thành phần được đề xuất và so sánh với các baseline models
+</p>
+
 <p align="center">
   <img src="images/DoChinhXac.jpg" width="900">
   <br>
