@@ -399,7 +399,7 @@ Thiết lập một cấu trúc hình học lý tưởng theo triết lý "tối
 
 <div align="center">
 
-<p>Thống kê chi tiết về kiến trúc, quy mô và các tham số có thể huấn luyện của mô hình (Frozen=False)</p>
+<p>Thống kê chi tiết về kiến trúc, quy mô và các tham số có thể huấn luyện của mô hình (number classes = 15,input = (256, 256, 3), embedding = 512, backbone = None và Frozen=False)</p>
 
 <table>
   <tr>
@@ -408,15 +408,15 @@ Thiết lập một cấu trúc hình học lý tưởng theo triết lý "tối
   </tr>
   <tr>
     <td>Total Parameters</td>
-    <td>5,529,716</td>
+    <td>20.07 MB</td>
   </tr>
   <tr>
     <td>Trainable Parameters</td>
-    <td>5,523,699</td>
+    <td>20.05 MB</td>
   </tr>
   <tr>
     <td>Non-trainable Parameters</td>
-    <td>6,017</td>
+    <td>19.50 KB</td>
   </tr>
   <tr>
     <td>Model Size</td>
