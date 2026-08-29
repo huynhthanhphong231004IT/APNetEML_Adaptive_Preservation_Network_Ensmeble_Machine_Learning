@@ -21,12 +21,12 @@
 
 <h3 align="left">
   <span style="color:#8B4513;">
-    <b>Hướng dẫn huấn luyện APNetEML với CIFAR-10 trên Google Colaboratory</b>
+    <b>Guide to training APNetEML with CIFAR-10 on Google Colaboratory</b>
   </span>
 </h3>
 
 <p>
-  Bước 1. Clone module từ git về
+  Step 1. Clone module from git
 </p>
 
 ```python
@@ -34,7 +34,7 @@
 ```
 
 <p>
-  Bước 2. Chuyển thư mục module làm việc hiện tại trong Google Colab
+  Step 2. Change the current working module directory in Google Colab.
 </p>
 
 ```python
@@ -42,7 +42,7 @@
 ```
 
 <p>
-  Bước 3. Cài tất cả các thư viện Python trong file requirements.txt
+  Step 3. Install all Python libraries listed in the requirements.txt file.
 </p>
 
 ```python
@@ -50,7 +50,7 @@
 ```
 
 <p>
-  Bước 4. Tải tập dữ liệu huấn luyện CIFAR-10 
+  Step 4. Download the CIFAR-10 training dataset.
 </p>
 
 ```python
@@ -71,7 +71,7 @@ print("y_test :", y_test.shape)
 ```
 
 <p>
-  Bước 5. Chuấn hóa Cosine Annealing cho Learning Rate
+  Step 5. Cosine Annealing Normalization for Learning Rate
 </p>
 <img src="https://latex.codecogs.com/svg.image?%5Ceta_t%20%3D%20%5Ceta_%7Bmin%7D%20%2B%20%5Cfrac%7B1%7D%7B2%7D%28%5Ceta_%7Bmax%7D%20-%20%5Ceta_%7Bmin%7D%29%5Cleft%281%20%2B%20%5Ccos%5Cleft%28%5Cfrac%7Bt%7D%7BT%7D%5Cpi%5Cright%29%5Cright%29%2C%20%5Ctext%7Bpatience%7D%20%3D%203" width="450" style="vertical-align: middle;">
 
@@ -99,7 +99,7 @@ class CosineLRSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):
 ```
 
 <p>
-  Bước 6. Thiết lập các thông số huấn luyện
+  Step 6. Configure training parameters
 </p>
 
 ```python
@@ -132,7 +132,7 @@ early_stopping = tf.keras.callbacks.EarlyStopping(
 ```
 
 <p>
-  Bước 7. Huấn luyện đặc trưng sâu trên APNet
+  Step 7. Deep feature training on APNetCNN
 </p>
 
 
@@ -158,20 +158,24 @@ history = model.fit_dataset(
     callbacks=[early_stopping]
 )
 ```
-
 > [!NOTE]
-> **`num_classes`**: Tổng số nhãn (classes) của tập dữ liệu.
+> **`num_classes`**: The total number of classes (labels) in the dataset.
 >
-> **`input_shape`**: Kích thước ảnh đầu vào RGB.
+> **`input_shape`**: The input image dimensions in RGB format.
 >
-> **`embedding_dim`**: Số chiều của vector đặc trưng (embedding) truyền vào PD-Loss (gợi ý: `512`, min `256`).
+> **`embedding_dim`**: The dimensionality of the feature vector (embedding) passed to the PD-Loss (recommended: `512`, minimum: `256`).
 >
-> **`backbone`**: Không sử dụng backbone có sẵn bên ngoài (`None`).
+> **`backbone`**: No external pretrained backbone is used (`None`).
 >
-> **`warmup_epochs`**: Số epoch đầu dùng cho giai đoạn chuyển pha trong PD-Loss function.
+> **`warmup_epochs`**: The number of initial epochs used for the phase transition in the PD-Loss function.
 >
-> **`Frozen`**: `True` nếu muốn đóng băng (freeze) một phần backbone (tầng Conv 216 và 512). `False` nếu sử dụng toàn bộ tầng backbone.
+> **`Frozen`**: Set to `True` to freeze part of the backbone (Conv2D layers with 216 and 512 filters). Set to `False` to train all backbone layers.
 
+<h3 align="left">
+  <span style="color:#8B4513;">
+    <b>Theoretical framework of the proposed study</b>
+  </span>
+</h3>
 
 <div align="left">
 <br>
