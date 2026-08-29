@@ -23,7 +23,7 @@
 <div align="left">
 
 <p>
-  <a href="docs/01-overview.md">
+  <a href="docs/APNetEML_SoureCode">
     <font size="5"><b>01. Source Code Model</b></font>
   </a>
   <br>
@@ -31,7 +31,7 @@
 </p>
 
 <p>
-  <a href="docs/02-apnetcnn.md">
+  <a href="docs/APNetEML_Theory.md">
     <font size="5"><b>02. Proposed Theory</b></font>
   </a>
   <br>
@@ -39,7 +39,7 @@
 </p>
 
 <p>
-  <a href="docs/03-activation.md">
+  <a href="docs/APNetEML_Results.md">
     <font size="5"><b>03. Experimental Results</b></font>
   </a>
   <br>
