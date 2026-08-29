@@ -46,12 +46,23 @@ Trên nền không gian nhúng 256 chiều đã được tối ưu bởi tầng 
   </span>
 </h3>
 
-<p align="center">
-  <img src="https://latex.codecogs.com/svg.image?SN-ReLU(x)=x%5Csigma(0.8x)+%5Cfrac%7B0.1x%7D%7B1+%7Cx%7C%7D" width="350">
+<p align="justify">
+SN-ReLU là hàm kích hoạt trơn, phi đơn điệu được tổng hợp và lấy cảm
+hứng từ Swish và Softsign. “SN–ReLU đặc biệt phù hợp cho các tác vụ thị giác
+yêu cầu kích hoạt phi đơn điệu mượt mà, lan truyền gradient ổn định và bảo toàn
+các tín hiệu phân biệt yếu, chẳng hạn như nhận dạng chi tiết và phân tích hình
+ảnh chất lượng thấp”. SN-ReLU là hàm mở rộng của ReLU ở miền âm và đặc tính trơn với các tính
+chất: (i) Tính liên tục; (ii) Tính khả vi; (iii) tính bị chặn về tốc độ biến thiên;
+(iv) Tính giảm các nơ-ron chết (miền âm của ReLU) và (v) Khắc phục biến mất
+đạo hàm ở dạng kỳ vọng. Hàm SN–ReLU được định nghĩa bởi:
 </p>
+<p align="center">
+  <img src="https://latex.codecogs.com/svg.image?SN-ReLU(x)=x%5Csigma(0.8x)+%5Cfrac%7B0.1x%7D%7B1+%7Cx%7C%7D" width="300">
+</p>
+
 <p align="left">
   <span>Trong đó, sigmoid được định nghĩa là:</span>
-  <img src="https://latex.codecogs.com/svg.image?%5Csigma(x)=%5Cfrac%7B1%7D%7B1+e%5E%7B-x%7D%7D" width="140" style="vertical-align: middle;">
+  <img src="https://latex.codecogs.com/svg.image?%5Csigma(x)=%5Cfrac%7B1%7D%7B1+e%5E%7B-x%7D%7D" width="100" style="vertical-align: middle;">
 </p>
 
 <p align="center">
@@ -72,13 +83,13 @@ Trên nền không gian nhúng 256 chiều đã được tối ưu bởi tầng 
 </p>
 <p align="justify">
 Trong đó, không gian tham số được ràng buộc bởi các điều kiện hình học sau:
-<img src="https://latex.codecogs.com/svg.image?%5Clambda%20%5Cin%20%280%2C1%29" width="65" style="vertical-align: middle;">
+<img src="https://latex.codecogs.com/svg.image?%5Clambda%20%5Cin%20%280%2C1%29" width="45" style="vertical-align: middle;">
 là hệ số rò rỉ âm (negative leakage coefficient), đóng vai trò giữ lại thành phần thông tin âm nhẹ.
-<img src="https://latex.codecogs.com/svg.image?%5Calpha%2C%5Cbeta%20%5Cin%20%5Cmathbb%7BR%7D%5E%2B" width="100" style="vertical-align: middle;">
+<img src="https://latex.codecogs.com/svg.image?%5Calpha%2C%5Cbeta%20%5Cin%20%5Cmathbb%7BR%7D%5E%2B" width="80" style="vertical-align: middle;">
 là các hệ số tỷ lệ dốc (scaling factors).
-<img src="https://latex.codecogs.com/svg.image?%5Cgamma%20%5Cin%20%281%2C%2B%5Cinfty%29" width="115" style="vertical-align: middle;">
+<img src="https://latex.codecogs.com/svg.image?%5Cgamma%20%5Cin%20%281%2C%2B%5Cinfty%29" width="95" style="vertical-align: middle;">
 là tham số cấu trúc điều khiển bậc phi tuyến tại vùng kích hoạt yếu.
-<img src="https://latex.codecogs.com/svg.image?%5Ctau%20%5Cin%20%5Cmathbb%7BR%7D%5E%2B" width="70" style="vertical-align: middle;">
+<img src="https://latex.codecogs.com/svg.image?%5Ctau%20%5Cin%20%5Cmathbb%7BR%7D%5E%2B" width="60" style="vertical-align: middle;">
 đóng vai trò là ngưỡng chuyển pha hình học (phase transition threshold).
 </p>
 
@@ -102,15 +113,15 @@ và phi tuyến mạnh (Đường xanh lá với
   </span>
 </h3>
 <p align="justify">
-  Nhằm tăng cường khả năng phân tách liên lớp (inter-class separability), tối
-  ưu độ co cụm nội lớp (intra-class compactness), đồng thời bảo toàn cấu trúc hình
-  thái (morphological structures) đặc trưng của ảnh cổ vật, luận văn này xây dựng
+  Nhằm tăng cường khả năng  <mark><b>phân tách liên lớp</b></mark> (inter-class separability), tối
+  ưu độ <mark><b>co cụm nội lớp</b></mark> (intra-class compactness), đồng thời
+  <mark><b>bảo toàn cấu trúc hình thái</b></mark> (morphological structures) đặc trưng của ảnh cổ vật, nghiên cứu này xây dựng
   một hàm mất mát tổng hợp đa thành phần (multi-component joint loss function).
-  Hệ thống bao gồm các thành phần tối ưu hóa chuyên biệt tác động lên không
+  PD-Loss bao gồm các thành phần tối ưu hóa chuyên biệt tác động lên không
   gian nhúng đặc trưng (feature embedding space). Cơ chế cốt lõi của phương pháp
-  là chiến lược học động trọng số (dynamic weight learning) giữa các thành phần
+  là <mark><b>chiến lược học động trọng số</b></mark> (dynamic weight learning) giữa các thành phần
   loss. Để đảm bảo tính ổn định hội tụ và tránh hiện tượng sụp đổ cấu trúc đa
-  tạp (manifold collapse), quá trình tối ưu được chia làm hai giai đoạn: Giai đoạn
+  tạp (manifold collapse), quá trình tối ưu được chia làm <mark><b>hai giai đoạn</b></mark>: Giai đoạn
   khởi tạo (warm-up phase) sử dụng hàm mất mát Cross-Entropy độc lập trong n
   epoch đầu tiên, và Giai đoạn tối ưu hóa thích nghi (adaptive optimization phase)
   cập nhật động các hệ số thông qua lan truyền ngược (backpropagation). Cụ thể,
