@@ -204,7 +204,7 @@ Mô hình APNet-EML gồm 2 giai đoạn: Giai đoạn 1 trích xuất đặc tr
 </i>
 </p>
 <p align="center">
-  <img src="../images/APNET_EML.png" width="800">
+  <img src="images/APNET_EML.png" width="800">
   <br>
   <i>Kiến trúc mô hình APNet-EML</i>
 </p>
@@ -260,19 +260,19 @@ chất: (i) Tính liên tục; (ii) Tính khả vi; (iii) tính bị chặn về
 </p>
 
 <p align="center">
-  <img src="../images/SNReLU.jpg" width="600">
+  <img src="images/SNReLU.jpg" width="600">
   <br>
   <i>Minh họa hàm SN–ReLU (a) và đạo hàm của SN–ReLU (b) trên trục số thực.</i>
 </p>
 
 <p align="center">
-  <img src="../images/DacTrungActicationConv1.png" width="900">
+  <img src="images/DacTrungActicationConv1.png" width="900">
   <br>
   <i>So sánh đặc trưng (feature maps) giữa các hàm kích hoạt (ReLU, SNReLU, PReLU, ELU) tại 8 kênh (channels) đầu ra của  <mark><b>lớp Convolution 2D đầu tiên (Conv1)</b></mark> trên cùng một ảnh đầu vào là chiếc xe tăng.</i>
 </p>
 
 <p align="center">
-  <img src="../images/DacTrungActicationConv6.png" width="900">
+  <img src="images/DacTrungActicationConv6.png" width="900">
   <br>
   <i>So sánh đặc trưng (feature maps) giữa các hàm kích hoạt (ReLU, SNReLU, PReLU, ELU) tại 8 kênh (channels) đầu ra của <mark><b>lớp Convolution 2D cuối cùng (Conv6)</b></mark>  trên cùng một ảnh đầu vào là chiếc xe tăng.</i>
 </p>
@@ -299,7 +299,7 @@ là tham số cấu trúc điều khiển bậc phi tuyến tại vùng kích ho
 </p>
 
 <p align="center">
-  <img src="../images/ANASPReLU.jpg" width="600">
+  <img src="images/ANASPReLU.jpg" width="600">
   <br>
   <i><p>
 Biểu diễn hình học của hàm kích hoạt đề xuất dưới các cấu hình tham số thích nghi, tương ứng với các trạng thái phân hóa đặc trưng:
@@ -313,7 +313,7 @@ và phi tuyến mạnh (Đường xanh lá với
 </p>
 
 <p align="center">
-  <img src="../images/DacTrungANASPReLU.png" width="900">
+  <img src="images/DacTrungANASPReLU.png" width="900">
   <br>
   <i>So sánh mật độ biểu diễn đặc trưng trong không gian nhúng (Embedding Dimension) giữa ANASPReLU và các hàm kích hoạt ở tầng cuối trước khi đưa vào hàm mất mát trên cùng một ảnh đầu vào là chiếc xe tăng.</i>
 </p>
