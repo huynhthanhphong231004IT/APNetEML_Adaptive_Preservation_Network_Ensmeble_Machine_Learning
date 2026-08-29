@@ -121,7 +121,7 @@ và phi tuyến mạnh (Đường xanh lá với
 <p align="center">
   <img src="images/DacTrungANASPReLU.png" width="900">
   <br>
-  <i>So sánh đặc trưng (feature maps) giữa các hàm kích hoạt (ReLU, SNReLU, PReLU, ELU) tại 8 kênh (channels) đầu ra của  <mark><b>lớp Convolution 2D đầu tiên (Conv1)</b></mark> trên cùng một ảnh đầu vào là chiếc xe tăng.</i>
+  <i>So sánh mật độ biểu diễn đặc trưng trong không gian nhúng (Embedding Dimension) giữa ANASPReLU và các hàm kích hoạt ở tầng cuối trước khi đưa vào hàm mất mát trên cùng một ảnh đầu vào là chiếc xe tăng.</i>
 </p>
 
 <h3 align="left">
