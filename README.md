@@ -399,7 +399,7 @@ Thiết lập một cấu trúc hình học lý tưởng theo triết lý "tối
 
 <div align="center">
 
-<p>Thống kê chi tiết về kiến trúc, quy mô và các tham số có thể huấn luyện của mô hình (number classes = 15,input = (256, 256, 3), embedding = 512, backbone = None và Frozen=False)</p>
+<p>Thống kê chi tiết về kiến trúc, quy mô và các tham số của mô hình APNet(number classes = 15,input = (256, 256, 3), embedding = 512, backbone = None và Frozen=False)</p>
 
 <table>
   <tr>
