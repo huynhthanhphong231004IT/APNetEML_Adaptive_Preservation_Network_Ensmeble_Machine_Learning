@@ -15,7 +15,7 @@ from .callbacks import (
     SaveAPNetHistory,
     PlotAPNetHistory
 )
-
+from .ensemble_pipeline import run_ensemble_pipeline
 @register_keras_serializable(package="apnet")
 class APNet(tf.keras.Model):
     def __init__(
@@ -46,7 +46,7 @@ class APNet(tf.keras.Model):
             if backbone is None
             else backbone
         )
-        
+
         inp = Input(shape=input_shape)
         x = backbone_feat(inp)
         x = Dense(embedding_dim, use_bias=False)(x)
@@ -210,6 +210,7 @@ class APNet(tf.keras.Model):
         weight_decay: float = 1e-4,
         save_dir: str = "./output",
         callbacks: list = None,
+        run_ensemble: bool = True,
         **kwargs
     ):
         os.makedirs(save_dir, exist_ok=True)
@@ -292,4 +293,12 @@ class APNet(tf.keras.Model):
         joblib.dump(adaptive_weights, os.path.join(save_dir, "adaptive_loss_weights.pkl"))
 
         print(f"\n >>> [APNet] Training Complete! Artifacts saved to: {save_dir}")
+        if run_ensemble:
+            run_ensemble_pipeline(
+                model=self,
+                train_data=train_data,
+                val_data=val_data,
+                batch_size=batch_size,
+                output_dir=save_dir
+            )
         return history
