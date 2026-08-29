@@ -196,3 +196,14 @@ Thiết lập một cấu trúc hình học lý tưởng theo triết lý "tối
 Đóng vai trò kiểm soát entropy cấu trúc, làm mượt ranh giới quyết định đối với các mẫu nằm ở vùng bất định cao, tăng cường năng lực tổng quát hóa (generalization capability) của toàn bộ kiến trúc trên các tập dữ liệu thực tế độc lập.
 
 </p>
+
+
+<p>
+  <mark><b>Kết quả huấn luyện trên tập CIFAR-10</b></mark> so sánh giữa APNet-EML với các baseline EfficientNetB0 và ResNe50
+</p>
+
+<p align="center">
+  <img src="images/HuanLuyenCIFAR10.png" width="900">
+  <br>
+  <i> Quá trình huấn luyện thử nghiệm mô hình <mark><b>APNet-EML</b></mark> trên tập dữ liệuCIFAR10</i>
+</p>
