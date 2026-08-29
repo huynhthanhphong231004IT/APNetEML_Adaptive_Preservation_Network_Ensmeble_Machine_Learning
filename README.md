@@ -1,3 +1,17 @@
+Các model APNet-EML
+
+```python
+model = APNet(
+    num_classes=10,
+    input_shape=(64, 64, 3),
+    embedding_dim=1024,
+    backbone=None,
+    warmup_epochs=5,
+    Frozen=False
+)
+```
+
+
 <h3 align="left">
   <span style="color:#8B4513;">
     <b>Kết quả đánh giá trên các tập dữ liệu khác nhau</b>
