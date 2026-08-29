@@ -25,18 +25,33 @@
   </span>
 </h3>
 
+<p>
+  Bước 1. Clone module từ git về
+</p>
 
 ```python
 !git clone https://github.com/huynhthanhphong231004IT/Adaptive_Preservation_Network.git
 ```
 
+<p>
+  Bước 2. Chuyển thư mục module làm việc hiện tại trong Google Colab
+</p>
+
 ```python
 %cd /content/Adaptive_Preservation_Network
 ```
 
+<p>
+  Bước 3. Cài tất cả các thư viện Python trong file requirements.txt
+</p>
+
 ```python
 !pip install -r requirements.txt
 ```
+
+<p>
+  Bước 4. Tải tập dữ liệu huấn luyện CIFAR-10 
+</p>
 
 ```python
 import tensorflow as tf
@@ -54,6 +69,10 @@ print("y_train:", y_train.shape)
 print("X_test :", X_test.shape)
 print("y_test :", y_test.shape)
 ```
+
+<p>
+  Bước 5. Chuấn hóa Cosine Annealing cho Learning Rate
+</p>
 
 ```python
 class CosineLRSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):
@@ -76,6 +95,10 @@ class CosineLRSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):
             "total_steps": self.total_steps
         }
 ```
+
+<p>
+  Bước 6. Thiết lập các thông số huấn luyện
+</p>
 
 ```python
 TOTAL_EPOCHS = 200
@@ -102,6 +125,11 @@ early_stopping = tf.keras.callbacks.EarlyStopping(
 )
 ```
 
+<p>
+  Bước 7. Huấn luyện đặc trưng sâu trên APNet
+</p>
+
+
 ```python
 model = APNet(
     num_classes=10,
@@ -125,17 +153,13 @@ history = model.fit_dataset(
 )
 ```
 
-
-```python
-model = APNet(
-    num_classes=10,
-    input_shape=(64, 64, 3),
-    embedding_dim=1024,
-    backbone=None,
-    warmup_epochs=5,
-    Frozen=False
-)
-```
+> [!NOTE]
+> Tham số num_classes: Tổng số nhãn (classes) của tập dữ liệu.
+> Tham số input_shape: Kích thước ảnh đầu vào RGB.
+> Tham số embedding_dim: Số chiều của vector đặc trưng (embedding) truyền vào PD-Loss (gợi ý 512)
+> Tham số backbone: Không sử dụng backbone có sẵn bên ngoài (None)
+> Tham số warmup_epochs: Số epoch đầu dùng giai đoạn chuyển pha trong PD-Loss function
+> Tham số Frozen: True nếu muốn đóng băng (freeze) một phần backbone (tầng Conv 216 và 512). False nếu sử dụng full tầng backnone.
 
 
 <div align="left">
