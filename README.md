@@ -154,13 +154,17 @@ history = model.fit_dataset(
 ```
 
 > [!NOTE]
-> Tham số num_classes: Tổng số nhãn (classes) của tập dữ liệu.
-> Tham số input_shape: Kích thước ảnh đầu vào RGB.
-> Tham số embedding_dim: Số chiều của vector đặc trưng (embedding) truyền vào PD-Loss (gợi ý 512)
-> Tham số backbone: Không sử dụng backbone có sẵn bên ngoài (None)
-> Tham số warmup_epochs: Số epoch đầu dùng giai đoạn chuyển pha trong PD-Loss function
-> Tham số Frozen: True nếu muốn đóng băng (freeze) một phần backbone (tầng Conv 216 và 512). False nếu sử dụng full tầng backnone.
-
+> **`num_classes`**: Tổng số nhãn (classes) của tập dữ liệu.
+>
+> **`input_shape`**: Kích thước ảnh đầu vào RGB.
+>
+> **`embedding_dim`**: Số chiều của vector đặc trưng (embedding) truyền vào PD-Loss (gợi ý: `512`).
+>
+> **`backbone`**: Không sử dụng backbone có sẵn bên ngoài (`None`).
+>
+> **`warmup_epochs`**: Số epoch đầu dùng cho giai đoạn chuyển pha trong PD-Loss function.
+>
+> **`Frozen`**: `True` nếu muốn đóng băng (freeze) một phần backbone (tầng Conv 216 và 512). `False` nếu sử dụng toàn bộ tầng backbone.
 
 <div align="left">
 <p>
