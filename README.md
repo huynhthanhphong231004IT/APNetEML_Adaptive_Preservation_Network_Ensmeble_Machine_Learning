@@ -10,7 +10,7 @@
 <td width="180"></td>
 <td>
 
-<b>My dreams:</b> Artificial Intelligence in Education - Mathematics in Deep Learning and Machine Learning Engineer<br>
+<b>Researchs:</b> Artificial Intelligence in Education - Mathematics in Deep Learning and Machine Learning<br>
 <b>Name Project:</b> Hybrid Model: Adaptive Preservation Network - Ensemble Machine Learning<br>
 <b>Timeline:</b> 03/2025 – 08/2026
 
