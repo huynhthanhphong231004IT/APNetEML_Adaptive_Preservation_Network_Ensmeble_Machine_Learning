@@ -118,6 +118,12 @@ và phi tuyến mạnh (Đường xanh lá với
 </p></i>
 </p>
 
+<p align="center">
+  <img src="images/DacTrungANASPReLU.png" width="900">
+  <br>
+  <i>So sánh đặc trưng (feature maps) giữa các hàm kích hoạt (ReLU, SNReLU, PReLU, ELU) tại 8 kênh (channels) đầu ra của  <mark><b>lớp Convolution 2D đầu tiên (Conv1)</b></mark> trên cùng một ảnh đầu vào là chiếc xe tăng.</i>
+</p>
+
 <h3 align="left">
   <span style="color:#8B4513;">
     <b>3. Chiến lược hàm mất mát thích nghi động thích nghi ngữ cảnh PD - Loss (Proposed Dynamic Loss)</b>
