@@ -172,7 +172,9 @@ history = model.fit_dataset(
 >
 > **`Frozen`**: `True` nếu muốn đóng băng (freeze) một phần backbone (tầng Conv 216 và 512). `False` nếu sử dụng toàn bộ tầng backbone.
 
+
 <div align="left">
+<br>
 <p>
   <a href="docs/APNetEML_Theory.md">
     <font size="5"><b>I. Proposed Theory</b></font>
@@ -180,7 +182,7 @@ history = model.fit_dataset(
   <br>
   <font size="3">Theoretical foundation of APNet-EML architecture: (1) Activation functions including SNReLU and ANASPReLU;(2) Mix loss function with 5 baseline losses of Deep Lerning is PD-Loss; (3) Ensemble Machine Learing with 4 algorithms including SVM, Random Forest, Logistic Regestion, MLP in Vote Soft</font>
 </p>
-
+<br>
 <p>
   <a href="docs/APNetEML_Results.md">
     <font size="5"><b>II. Experimental Results</b></font>
