@@ -158,7 +158,7 @@ history = model.fit_dataset(
 >
 > **`input_shape`**: Kích thước ảnh đầu vào RGB.
 >
-> **`embedding_dim`**: Số chiều của vector đặc trưng (embedding) truyền vào PD-Loss (gợi ý: `512`).
+> **`embedding_dim`**: Số chiều của vector đặc trưng (embedding) truyền vào PD-Loss (gợi ý: `512`, min `256`).
 >
 > **`backbone`**: Không sử dụng backbone có sẵn bên ngoài (`None`).
 >
