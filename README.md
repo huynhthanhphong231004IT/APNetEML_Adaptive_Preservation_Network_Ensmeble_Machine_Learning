@@ -411,15 +411,15 @@ Thiết lập một cấu trúc hình học lý tưởng theo triết lý "tối
   </tr>
   <tr>
     <td>Total Parameters</td>
-    <td>20.07 MB</td>
+    <td>5,255,284</td>
   </tr>
   <tr>
     <td>Trainable Parameters</td>
-    <td>20.05 MB</td>
+    <td>5,250,291</td>
   </tr>
   <tr>
     <td>Non-trainable Parameters</td>
-    <td>19.50 KB</td>
+    <td>4,993</td>
   </tr>
   <tr>
     <td>Model Size</td>
