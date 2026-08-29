@@ -12,7 +12,7 @@ Mô hình APNet-EML gồm 2 giai đoạn: Giai đoạn 1 trích xuất đặc tr
 <p align="center">
   <img src="images/APNET_EML.png" width="800">
   <br>
-  <i>Hình 1. Kiến trúc mô hình APNet-EML</i>
+  <i>Kiến trúc mô hình APNet-EML</i>
 </p>
 <p style="text-align: justify;">
 
@@ -68,9 +68,14 @@ chất: (i) Tính liên tục; (ii) Tính khả vi; (iii) tính bị chặn về
 <p align="center">
   <img src="images/SNReLU.jpg" width="600">
   <br>
-  <i>Hình 2. Minh họa hàm SN–ReLU (a) và đạo hàm của SN–ReLU (b) trên trục số thực.</i>
+  <i>Minh họa hàm SN–ReLU (a) và đạo hàm của SN–ReLU (b) trên trục số thực.</i>
 </p>
 
+<p align="center">
+  <img src="images/DacTrungActication.png" width="900">
+  <br>
+  <i>So sánh đặc trưng (feature maps) giữa các hàm kích hoạt (ReLU, SNReLU, PReLU, ELU) tại 8 kênh (channels) đầu ra của lớp Convolution 2D đầu tiên (Conv1) trên cùng một ảnh đầu vào là chiếc xe tăng.</i>
+</p>
 
 <h3 align="left">
   <span style="color:#8B4513;">
@@ -96,7 +101,7 @@ là tham số cấu trúc điều khiển bậc phi tuyến tại vùng kích ho
 <p align="center">
   <img src="images/ANASPReLU.jpg" width="600">
   <br>
-  <i>Hình 3. <p>
+  <i><p>
 Biểu diễn hình học của hàm kích hoạt đề xuất dưới các cấu hình tham số thích nghi, tương ứng với các trạng thái phân hóa đặc trưng:
 phi tuyến nhẹ (Đường xanh dương với
 <img src="https://latex.codecogs.com/svg.image?%5Clambda%3D0.05%2C%5Calpha%3D0.70%2C%5Cgamma%3D1.3%2C%5Ctau%3D1.2%2C%5Cbeta%3D0.9" width="330" style="vertical-align: middle;">),
