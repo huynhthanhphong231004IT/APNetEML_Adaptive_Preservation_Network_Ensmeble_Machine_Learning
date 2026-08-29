@@ -11,7 +11,8 @@
 <b>Researchs:</b> Artificial Intelligence in Education - Mathematics in Deep Learning and Machine Learning<br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<b>Name Project:</b> Hybrid Model: Adaptive Preservation Network - Ensemble Machine Learning<br>
+<mark><b><b>Name Project:</b> Hybrid Model: Adaptive Preservation Network - Ensemble Machine Learning (APNet-EML)<br></b></mark>
+
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <b>Timeline:</b> 03/2025 – 08/2026 at Computer science department
