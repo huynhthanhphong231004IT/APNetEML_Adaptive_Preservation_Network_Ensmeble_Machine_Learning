@@ -42,17 +42,62 @@ Trên nền không gian nhúng 256 chiều đã được tối ưu bởi tầng 
 
 <h3 align="left">
   <span style="color:#8B4513;">
-    <b>Hàm kích hoạt SN-ReLU (Smooth Nonlinear ReLU)</b>
+    <b>1. Hàm kích hoạt SN-ReLU (Smooth Nonlinear ReLU)</b>
   </span>
 </h3>
 
-<math block value="SN\\text{-}ReLU(x)=x\\sigma(0.8x)+\\frac{0.1x}{1+|x|}"/>
-
+<p align="center">
+  <img src="https://latex.codecogs.com/svg.image?SN-ReLU(x)=x%5Csigma(0.8x)+%5Cfrac%7B0.1x%7D%7B1+%7Cx%7C%7D" width="350">
+</p>
+<p align="left">
+  <span>Trong đó, sigmoid được định nghĩa là:</span>
+  <img src="https://latex.codecogs.com/svg.image?%5Csigma(x)=%5Cfrac%7B1%7D%7B1+e%5E%7B-x%7D%7D" width="140" style="vertical-align: middle;">
+</p>
 
 <p align="center">
-  <img src="images/SNReLU.jpg" width="800">
+  <img src="images/SNReLU.jpg" width="600">
   <br>
   <i>Hình 2. Minh họa hàm SN–ReLU (a) và đạo hàm của SN–ReLU (b) trên trục số thực.</i>
 </p>
 
 
+<h3 align="left">
+  <span style="color:#8B4513;">
+    <b>2. Hàm kích hoạt ANASP-ReLU (Antique-Aware Soft-Preserving Rectified Linear Unit)</b>
+  </span>
+</h3>
+
+<p align="center">
+  <img src="https://latex.codecogs.com/svg.image?f(x)%3D%20ANASP-ReLU(x)%3D%20%5Cbegin%7Bcases%7D%20%5Clambda%20x%2C%20%26%20%5Ctext%7Bif%20%7D%20x%20%5Cleq%200%2C%20%5C%5C%20%5Calpha%20x%5E%7B%5Cgamma%7D%2C%20%26%20%5Ctext%7Bif%20%7D%200%20%3C%20x%20%3C%20%5Ctau%2C%20%5C%5C%20%5Calpha%20%5Ctau%5E%7B%5Cgamma%7D%20%2B%20%5Cbeta%28x-%5Ctau%29%2C%20%26%20%5Ctext%7Bif%20%7D%20x%20%5Cgeq%20%5Ctau.%20%5Cend%7Bcases%7D" width="550">
+</p>
+<p align="justify">
+Trong đó, không gian tham số được ràng buộc bởi các điều kiện hình học sau:
+<img src="https://latex.codecogs.com/svg.image?%5Clambda%20%5Cin%20%280%2C1%29" width="65" style="vertical-align: middle;">
+là hệ số rò rỉ âm (negative leakage coefficient), đóng vai trò giữ lại thành phần thông tin âm nhẹ.
+<img src="https://latex.codecogs.com/svg.image?%5Calpha%2C%5Cbeta%20%5Cin%20%5Cmathbb%7BR%7D%5E%2B" width="100" style="vertical-align: middle;">
+là các hệ số tỷ lệ dốc (scaling factors).
+<img src="https://latex.codecogs.com/svg.image?%5Cgamma%20%5Cin%20%281%2C%2B%5Cinfty%29" width="115" style="vertical-align: middle;">
+là tham số cấu trúc điều khiển bậc phi tuyến tại vùng kích hoạt yếu.
+<img src="https://latex.codecogs.com/svg.image?%5Ctau%20%5Cin%20%5Cmathbb%7BR%7D%5E%2B" width="70" style="vertical-align: middle;">
+đóng vai trò là ngưỡng chuyển pha hình học (phase transition threshold).
+</p>
+
+<p align="center">
+  <img src="images/ANASPReLU.jpg" width="600">
+  <br>
+  <i>Hình 3. <p>
+Biểu diễn hình học của hàm kích hoạt đề xuất dưới các cấu hình tham số thích nghi, tương ứng với các trạng thái phân hóa đặc trưng:
+phi tuyến nhẹ (Đường xanh dương với
+<img src="https://latex.codecogs.com/svg.image?%5Clambda%3D0.05%2C%5Calpha%3D0.70%2C%5Cgamma%3D1.3%2C%5Ctau%3D1.2%2C%5Cbeta%3D0.9" width="330" style="vertical-align: middle;">),
+trạng thái cân bằng (Đường đỏ với
+<img src="https://latex.codecogs.com/svg.image?%5Clambda%3D0.15%2C%5Calpha%3D0.90%2C%5Cgamma%3D1.8%2C%5Ctau%3D1.5%2C%5Cbeta%3D1.1" width="330" style="vertical-align: middle;">)
+và phi tuyến mạnh (Đường xanh lá với
+<img src="https://latex.codecogs.com/svg.image?%5Clambda%3D0.25%2C%5Calpha%3D1.1%2C%5Cgamma%3D2.5%2C%5Ctau%3D2%2C%5Cbeta%3D1.4" width="320" style="vertical-align: middle;">).
+</p></i>
+</p>
+
+<h3 align="left">
+  <span style="color:#8B4513;">
+    <b>3. Chiến lược hàm mất mát thích nghi động thích nghi ngữ cảnh PD - Loss (Proposed Dynamic Loss)</b>
+  </span>
+</h3>
