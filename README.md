@@ -44,7 +44,7 @@ Youtobe: https://www.youtube.com/@ReoRioll-2304CICTCTU <br>
 </p>
 
 ```python
-!git clone https://github.com/huynhthanhphong231004IT/Adaptive_Preservation_Network.git
+!git clone https://github.com/huynhthanhphong231004IT/APNetEML_Adaptive_Preservation_Network_Ensmeble_Machine_Learning.git
 ```
 
 <p>
