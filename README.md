@@ -86,6 +86,73 @@ print("X_test :", X_test.shape)
 print("y_test :", y_test.shape)
 ```
 
+Các tập dữ liệu hình ảnh phổ biến trong TensorFlow/Keras
+
+<div align="center">
+<table width="100%" style="border-collapse: collapse; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; line-height: 1.5;">
+  <thead>
+    <tr style="background-color: #f1f5f9; color: #1e293b; text-align: left; border-bottom: 2px solid #cbd5e1;">
+      <th style="padding: 12px 16px; border: 1px solid #e2e8f0;">Tập dữ liệu</th>
+      <th style="padding: 12px 16px; border: 1px solid #e2e8f0; text-align: center;">Số lượng & Kích thước</th>
+      <th style="padding: 12px 16px; border: 1px solid #e2e8f0;">Độ khó và Giải thích chi tiết</th>
+      <th style="padding: 12px 16px; border: 1px solid #e2e8f0;">Lệnh tải nhanh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- MNIST -->
+    <tr style="background-color: #ffffff;">
+      <td style="padding: 14px 16px; border: 1px solid #e2e8f0; vertical-align: top;">
+        MNIST<br><span style="color: #64748b; font-size: 13px;">Nhận dạng chữ số viết tay</span>
+      </td>
+      <td style="padding: 14px 16px; border: 1px solid #e2e8f0; text-align: center; vertical-align: top; white-space: nowrap;">
+        60,000 train / 10,000 test<br><span style="color: #64748b; font-size: 13px;">28 x 28 (Ảnh xám)</span>
+      </td>
+      <td style="padding: 14px 16px; border: 1px solid #e2e8f0; vertical-align: top;">
+        Mức độ: Dễ<br>
+        <span style="color: #475569; font-size: 13px;">Vì là ảnh xám đơn giản, các nét chữ số rõ ràng, tương phản cao với nền và ít bị biến dạng phức tạp. Mô hình mạng neural cơ bản cũng có thể đạt độ chính xác cao.</span>
+      </td>
+      <td style="padding: 14px 16px; border: 1px solid #e2e8f0; vertical-align: top;">
+        <code style="background-color: #f8fafc; padding: 4px 8px; border-radius: 4px; border: 1px solid #e2e8f0; font-family: monospace; font-size: 12px; display: block;">(X_train, y_train), (X_test, y_test) = tf.keras.datasets.mnist.load_data()</code>
+      </td>
+    </tr>
+    <!-- Fashion MNIST -->
+    <tr style="background-color: #f8fafc;">
+      <td style="padding: 14px 16px; border: 1px solid #e2e8f0; vertical-align: top;">
+        Fashion MNIST<br><span style="color: #64748b; font-size: 13px;">Phân loại trang phục</span>
+      </td>
+      <td style="padding: 14px 16px; border: 1px solid #e2e8f0; text-align: center; vertical-align: top; white-space: nowrap;">
+        60,000 train / 10,000 test<br><span style="color: #64748b; font-size: 13px;">28 x 28 (Ảnh xám)</span>
+      </td>
+      <td style="padding: 14px 16px; border: 1px solid #e2e8f0; vertical-align: top;">
+        Mức độ: Trung bình<br>
+        <span style="color: #475569; font-size: 13px;">Dù có cùng kích thước và số lượng với MNIST, nội dung là các loại quần áo, giày dép có đường nét và hình dáng phức tạp hơn, dễ gây nhầm lẫn giữa các lớp tương tự nhau.</span>
+      </td>
+      <td style="padding: 14px 16px; border: 1px solid #e2e8f0; vertical-align: top;">
+        <code style="background-color: #ffffff; padding: 4px 8px; border-radius: 4px; border: 1px solid #e2e8f0; font-family: monospace; font-size: 12px; display: block;">(X_train, y_train), (X_test, y_test) = tf.keras.datasets.fashion_mnist.load_data()</code>
+      </td>
+    </tr>
+    <!-- CIFAR-100 -->
+    <tr style="background-color: #ffffff;">
+      <td style="padding: 14px 16px; border: 1px solid #e2e8f0; vertical-align: top;">
+        CIFAR-100<br><span style="color: #64748b; font-size: 13px;">Phân loại hình ảnh chi tiết</span>
+      </td>
+      <td style="padding: 14px 16px; border: 1px solid #e2e8f0; text-align: center; vertical-align: top; white-space: nowrap;">
+        50,000 train / 10,000 test<br><span style="color: #64748b; font-size: 13px;">32 x 32 x 3 (Ảnh màu RGB)</span>
+      </td>
+      <td style="padding: 14px 16px; border: 1px solid #e2e8f0; vertical-align: top;">
+        Mức độ: Khó<br>
+        <span style="color: #475569; font-size: 13px;">Ảnh màu có độ phân giải thấp nhưng chia thành tới 100 lớp khác nhau, mỗi lớp có ít mẫu huấn luyện. Đòi hỏi phải sử dụng các mô hình CNN sâu hoặc kỹ thuật Transfer Learning để xử lý.</span>
+      </td>
+      <td style="padding: 14px 16px; border: 1px solid #e2e8f0; vertical-align: top;">
+        <code style="background-color: #f8fafc; padding: 4px 8px; border-radius: 4px; border: 1px solid #e2e8f0; font-family: monospace; font-size: 12px; display: block;">(X_train, y_train), (X_test, y_test) = tf.keras.datasets.cifar100.load_data()</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+
+
 <p>
   Step 5. Cosine Annealing Normalization for Learning Rate
 </p>
