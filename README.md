@@ -209,6 +209,13 @@ Mô hình APNet-EML gồm 2 giai đoạn: Giai đoạn 1 trích xuất đặc tr
 
 <b>A. Cấu trúc APNetCNN - trích xuất đặc trưng sâu</b>
 
+<p align="center">
+  <img src="images/SoDoAPNetCNN.png" width="700">
+  <br>
+  <i>Cấu trúc trích xuất đặc trưng sâu - APNetCNN</i>
+</p>
+
+
 Chúng tôi đề xuất một kiến trúc mạng nơ-ron tích chập tinh gọn được tối ưu hóa cho nhiệm vụ trích xuất và biến đổi không gian nhúng biểu diễn. Cơ chế hoạt động bao gồm ba giai đoạn xử lý chính: (1) Ảnh đầu vào sau bước tăng cường dữ liệu được đưa qua ba khối Conv2D nông với số kênh lần lượt 32 → 64 → 128 nhằm học các đặc trưng hình học cơ sở như biên, góc và kết cấu; (2) Bản đồ đặc trưng hai chiều được nén trực tiếp thành vectơ một chiều thông qua tầng Global Average Pooling (GAP), loại bỏ hoàn toàn các tầng Fully Connected truyền thống vốn chiếm phần lớn số lượng tham số trong mạng CNN; (3) Vectơ đặc trưng tiếp tục được tinh chỉnh qua hai tầng Dense gồm 256 nút để sinh ra vectơ nhúng biểu diễn đặc trưng có khả năng phân tách hình học tối đa z ∈ R<sup>256</sup>.
 
 Bản chất của việc phân bổ phân cấp hai hàm kích hoạt phi tuyến SN-ReLU và ANASP-ReLU xuất phát từ sự khác biệt về vai trò toán học và chi phí tính toán tại từng độ sâu của kiến trúc mạng:
