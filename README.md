@@ -2,6 +2,14 @@
   Author: Huynh Thanh Phong (ReoRioll)
 </h2>
 
+<p align="center">
+  Một phần khóa luận tốt nghiệp ngành khoa học máy tính HKIII 2025 - 2026
+  <br>
+  Giáo viên hướng dẫn: TS. Mã Trường Thành
+</p>
+
+</p>
+
 <h2 align="center">
   
 [![Facebook](https://img.shields.io/badge/Facebook-Huỳnh%20Thanh%20Phong-E53935?style=for-the-badge&logo=facebook&logoColor=white&labelColor=333333)](https://www.facebook.com/huynh.thanh.phong.561667)
