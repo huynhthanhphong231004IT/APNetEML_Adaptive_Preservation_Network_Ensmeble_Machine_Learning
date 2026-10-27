@@ -221,6 +221,12 @@ Bản chất của việc phân bổ phân cấp hai hàm kích hoạt phi tuy�
 
 <b>B. Cấu trúc phân loại tập thể EML</b>
 
+<p align="center">
+  <img src="images/SoDoEML.png" width="700">
+  <br>
+  <i>Phương pháp tập hợp mô hình trong kiến trúc EML để giảm bias cho quá trình phân tách đặc trưng.</i>
+</p>
+
 Tầng phân loại cuối được thiết kế theo cơ chế học tập thể (Ensemble Learning) dựa trên chiến lược Soft Voting bao gồm bốn bộ phân loại học máy gồm Support Vector Machine (SVM), Random Forest (RF), Logistic Regression (LogReg) và Multi-Layer Perceptron (MLP). Thiết kế này không phát sinh quá trình lan truyền ngược tại giai đoạn phân loại, qua đó duy trì tổng số tham số huấn luyện của toàn bộ mô hình ở mức tối ưu.
 
 Ở cơ chế phân loại cuối Ensemble này có kết hợp cơ chế Stacking hai tầng giữa Random Forest và Logistic Regression, trong đó RF đóng vai trò bộ học cơ sở tạo ra các phân phối xác suất ban đầu, còn LogReg thực hiện hiệu chỉnh xác suất trước khi đưa vào cơ chế bỏ phiếu mềm. Nhờ vậy, các ranh giới quyết định dạng phân mảnh đặc trưng của tập hợp cây được làm mượt, giảm hiện tượng dự đoán quá tự tin, đồng thời hạn chế nguy cơ quá khớp và cải thiện khả năng tổng quát hóa trên dữ liệu chưa quan sát.
